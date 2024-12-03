@@ -259,5 +259,19 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
         method: 'GET',
         ...params,
       }),
+  
+    /**
+     * No description
+     *
+     * @tags users
+     * @name UsersControllerGetPost
+     * @request GET:/posts/{postId}
+     */
+    postsControllerGetPost: (postId: string, params: RequestParams = {}) =>
+      this.request<any, any>({
+        path: `/posts/${postId}`,
+        method: 'GET',
+        ...params,
+      }),
   };
 }

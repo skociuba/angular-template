@@ -9,24 +9,8 @@ import { Api } from '../api/src/Api';
 import { Router } from '@angular/router';
 
 export interface AppStateModel {
-    userData: interfaces.UserData | false | undefined;
-
-    // * data-state
-    transportAuthorities: interfaces.TransportAuthority[];
-    policies?: interfaces.Policy[];
-    faqs?: interfaces.Faq[];
-    tickets: interfaces.Ticket[];
-    products: interfaces.Product[];
-    selectedTransportAuthority: any;
-    suppliers: interfaces.Supplier[];
-    stations: interfaces.Station[];
-    pickupPoints: interfaces.Station[];
-    posts: any[];
-
-    // * ui-state
-    showHeaderTransportAuthoritiesDropdown: boolean;
-    showChooseTransportAuthorityDialog: boolean;
-    cartHidden: boolean;
+    posts: interfaces.Post[];
+    post : interfaces.Post;
 }
 
 export const APP_STATE_TOKEN = new StateToken<AppStateModel>(`app`);
@@ -34,24 +18,10 @@ export const APP_STATE_TOKEN = new StateToken<AppStateModel>(`app`);
 @State<AppStateModel>({
     name: APP_STATE_TOKEN,
     defaults: {
-        userData: undefined,
-
-        // * data-state
-        transportAuthorities: [],
-        policies: undefined,
-        faqs: undefined,
-        tickets: [],
-        selectedTransportAuthority: undefined,
-        products: [],
-        suppliers: [],
-        stations: [],
-        pickupPoints: [],
+      
         posts:[],
+        post: { id: '', userId: '', title: '', body: '' },
 
-        // * ui-state
-        showHeaderTransportAuthoritiesDropdown: true,
-        showChooseTransportAuthorityDialog: false,
-        cartHidden: true,
     },
 })
 @Injectable()
@@ -65,6 +35,11 @@ export class AppState {
     static posts(state: AppStateModel) {
         return state.posts;
     }
+    @Selector()
+    static post(state: AppStateModel) {
+        return state.post;
+    }
+
 
 
     @Action(AppStateActions.GetPosts)
@@ -76,6 +51,14 @@ export class AppState {
         });
     }
 
+    @Action(AppStateActions.GetPost)
+    async getPost(ctx: StateContext<AppStateModel>, action: AppStateActions.GetPost) {
+      const res = await this.apiService.posts.postsControllerGetPost(action.postId);
+      const post = res.data as any;
+      ctx.patchState({
+        post,
+      });
+    }
 
 
 }

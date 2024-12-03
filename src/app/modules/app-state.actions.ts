@@ -6,3 +6,8 @@ export class Get {
 export class GetPosts {
   static readonly type = `${modelName} GetPosts`;
 }
+
+export class GetPost {
+  static readonly type = `${modelName} GetPost`;
+  constructor(public postId: string) {}
+}

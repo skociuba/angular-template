@@ -3,10 +3,12 @@ import { CommonModule } from '@angular/common';
 import { Select } from '@ngxs/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AppState } from './../../modules/app.state';
-import { Post } from './../../modules/interfaces';
+import { AppState } from './../../../../modules/app.state';
+import { Post } from './../../../../modules/interfaces';
 import { Store } from '@ngxs/store';
-import * as AppStateActions from './../../modules/app-state.actions';
+import * as AppStateActions from './../../../../modules/app-state.actions';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-posts',
   standalone: true,
@@ -15,19 +17,20 @@ import * as AppStateActions from './../../modules/app-state.actions';
   styleUrl: './posts.component.scss',
 })
 export class PostsComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(new AppStateActions.GetPosts());
-
-    this.posts$.subscribe((posts) => {
-      console.log(posts);
-    });
   }
+
   @Select(AppState.posts)
   private readonly postsSource$!: Observable<Post[]>;
 
   readonly posts$ = combineLatest([this.postsSource$]).pipe(
     map(([post]) => post)
   );
+
+  goToEditPost(postId: string): void {
+    this.router.navigate([`/news/${postId}`]);
+  }
 }
