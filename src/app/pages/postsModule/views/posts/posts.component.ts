@@ -8,11 +8,11 @@ import { Post } from './../../../../modules/interfaces';
 import { Store } from '@ngxs/store';
 import * as AppStateActions from './../../../../modules/app-state.actions';
 import { Router } from '@angular/router';
-
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-posts',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonModule],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.scss',
 })

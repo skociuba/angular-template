@@ -259,7 +259,7 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
         method: 'GET',
         ...params,
       }),
-  
+
     /**
      * No description
      *
@@ -271,6 +271,18 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
       this.request<any, any>({
         path: `/posts/${postId}`,
         method: 'GET',
+        ...params,
+      }),
+    postsControllerEditPost: (
+      postId: string,
+      payload: any,
+      params: RequestParams = {}
+    ) =>
+      this.request<any, any>({
+        path: `/posts/${postId}`,
+        method: 'PUT',
+        body: payload,
+        type: ContentType.Json,
         ...params,
       }),
   };

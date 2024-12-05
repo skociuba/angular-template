@@ -1,6 +1,7 @@
 <div *ngIf="post$ | async as post">
-
-    <h3>{{ post.title }}</h3>
- 
-
-</div>
+    <h3>{{ title }}</h3>
+    <input type="text" pInputText [(ngModel)]="title" />
+    <button pButton type="button"  (click)=EditPost(post.id) class="p-button-rounded p-button-success">
+        Edit Post</button>
+  </div>
+  
