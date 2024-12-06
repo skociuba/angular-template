@@ -285,5 +285,16 @@ export class Api<SecurityDataType = any> extends HttpClient<SecurityDataType> {
         type: ContentType.Json,
         ...params,
       }),
+      postsControllerAddPost: (
+        payload: any,
+        params: RequestParams = {}
+      ) =>
+        this.request<any, any>({
+          path: `/posts`,
+          method: 'POST',
+          body: payload,
+          type: ContentType.Json,
+          ...params,
+        }),
   };
 }

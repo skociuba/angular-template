@@ -59,14 +59,14 @@ export class AppState {
         post,
       });
     }
-    // @Action(AppStateActions.EditPost)
-    // async editPost(ctx: StateContext<AppStateModel>, action: AppStateActions.EditPost) {
-    //   const res = await this.apiService.posts.postsControllerEditPost(action.postId, action.payload);
-    //   const updatedPost = res.data as any;
+    @Action(AppStateActions.EditPost)
+    async editPost(ctx: StateContext<AppStateModel>, action: AppStateActions.EditPost) {
+      const res = await this.apiService.posts.postsControllerEditPost(action.postId, action.payload);
+      const updatedPost = res.data as any;
   
-    //   ctx.patchState({
-    //     post: updatedPost,
-    //   });
-    // }
+      ctx.patchState({
+        post: updatedPost,
+      });
+    }
 
 }

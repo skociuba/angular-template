@@ -10,7 +10,7 @@ import * as AppStateActions from './../../../../modules/app-state.actions';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { Api } from './../../../../api/src/Api';
+
 @Component({
   selector: 'app-edit-post',
   standalone: true,
@@ -21,11 +21,11 @@ import { Api } from './../../../../api/src/Api';
 export class EditPostComponent implements OnInit {
   constructor(
     private store: Store,
-    private route: ActivatedRoute,
-    private readonly apiService: Api
+    private route: ActivatedRoute
   ) {}
 
   title: string = '';
+  body: string = '';
 
   @Select(AppState.post) // Pobiera post z AppState
   private readonly postSource$!: Observable<Post>;
@@ -39,22 +39,21 @@ export class EditPostComponent implements OnInit {
       this.store.dispatch(new AppStateActions.GetPost(String(postId)));
     }
 
-    // Subskrypcja strumienia i przypisanie tytułu do zmiennej `title`
+    // Subskrypcja strumienia i przypisanie tytułu i treści do zmiennych `title` i `body`
     this.post$.subscribe((post) => {
       if (post) {
         this.title = post.title;
+        this.body = post.body;
       }
     });
   }
 
-  async EditPost(postId: string): Promise<void> {
-    try {
-      await this.apiService.posts.postsControllerEditPost(postId, {
-        title: this.title,
-      });
-    } catch (error) {
-      // Obsługa błędów
-      console.error('Error editing post:', error);
-    }
+  EditPost(postId: string): void {
+    const payload = {
+      id: postId,
+      title: this.title,
+      body: this.body
+    };
+    this.store.dispatch(new AppStateActions.EditPost(postId, payload));
   }
 }
