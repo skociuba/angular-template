@@ -59,6 +59,7 @@ export class AppState {
         post,
       });
     }
+
     @Action(AppStateActions.EditPost)
     async editPost(ctx: StateContext<AppStateModel>, action: AppStateActions.EditPost) {
       const res = await this.apiService.posts.postsControllerEditPost(action.postId, action.payload);
@@ -69,4 +70,14 @@ export class AppState {
       });
     }
 
+    @Action(AppStateActions.AddPost)
+    async addPost(ctx: StateContext<AppStateModel>, action: AppStateActions.AddPost) {
+      const res = await this.apiService.posts.postsControllerAddPost(action.payload);
+      const addPost = res.data as any;
+  
+      ctx.patchState({
+        post: addPost,
+      });
+    }
+    
 }

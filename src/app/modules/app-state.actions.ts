@@ -16,3 +16,8 @@ export class EditPost {
   static readonly type = `${modelName} EditPost`;
   constructor(public postId: string, public payload: any) {}
 }
+
+export class AddPost {
+  static readonly type = `${modelName} AddPost`;
+  constructor( public payload: any) {}
+}

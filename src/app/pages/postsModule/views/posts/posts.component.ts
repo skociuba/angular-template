@@ -33,4 +33,7 @@ export class PostsComponent implements OnInit {
   goToEditPost(postId: string): void {
     this.router.navigate([`/news/${postId}`]);
   }
+  addNewPost(): void {
+    this.router.navigate(['/news/add-post']);
+  }
 }
