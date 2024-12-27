@@ -1,0 +1,14 @@
+<div class="container" *ngIf="post$ | async as post">
+
+  <input type="text"   class="margin-bottom" pInputText [(ngModel)]="title" placeholder="Title" />
+  <textarea class="margin-bottom" pInputText [(ngModel)]="body" placeholder="Body"></textarea>
+  <button
+    pButton
+  
+    type="button"
+    (click)="AddPost()"
+    class="p-button-rounded p-button-success center"
+  >
+   Add Post
+  </button>
+</div>

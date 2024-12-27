@@ -1,0 +1,13 @@
+<div class="container" *ngIf="post$ | async as post">
+  <h3>{{ title }}</h3>
+  <input type="text"  class="margin-bottom"  class="margin-bottom"  pInputText [(ngModel)]="title" placeholder="Title" />
+  <textarea pInputText  class="margin-bottom" [(ngModel)]="body" placeholder="Body"></textarea>
+  <button
+    pButton
+    type="button"
+    (click)="EditPost(post.id)"
+    class="p-button-rounded p-button-success center"
+  >
+    Edit Post
+  </button>
+</div>
